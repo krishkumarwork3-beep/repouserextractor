@@ -8,6 +8,8 @@ def lambda_handler(event, context):
 
     print(f"File '{object_key}' was uploaded to bucket '{bucket_name}'")
 
+    sns_client = boto3.client('sns')
+
     return {
         'statusCode': 200,
         'body': json.dumps('Lambda function executed successfully')
