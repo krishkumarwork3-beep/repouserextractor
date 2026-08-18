@@ -42,3 +42,12 @@ aws iam attach-role-policy \
 aws iam attach-role-policy \
     --role-name "$role_name" \
     --policy-arn arn:aws:iam::aws:policy/AmazonSNSFullAccess
+
+bucket_output=$(aws s3api create-bucket \
+    --bucket "$bucket_name" \
+    --region "$aws_region")
+
+echo "Bucket creation output: $bucket_output"
+
+aws s3 cp ./example_file.txt \
+    "s3://$bucket_name/example_file.txt"
