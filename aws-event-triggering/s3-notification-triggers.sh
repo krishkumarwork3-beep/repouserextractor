@@ -34,3 +34,11 @@ role_response=$(aws iam create-role \
 role_arn=$(echo "$role_response" | jq -r '.Role.Arn')
 
 echo "Role ARN: $role_arn"
+
+aws iam attach-role-policy \
+    --role-name "$role_name" \
+    --policy-arn arn:aws:iam::aws:policy/AWSLambda_FullAccess
+
+aws iam attach-role-policy \
+    --role-name "$role_name" \
+    --policy-arn arn:aws:iam::aws:policy/AmazonSNSFullAccess
