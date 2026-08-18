@@ -72,3 +72,15 @@ aws lambda add-permission \
     --action "lambda:InvokeFunction" \
     --principal s3.amazonaws.com \
     --source-arn "arn:aws:s3:::$bucket_name"
+
+LambdaFunctionArn="arn:aws:lambda:$aws_region:$aws_account_id:function:$lambda_func_name"
+
+aws s3api put-bucket-notification-configuration \
+    --region "$aws_region" \
+    --bucket "$bucket_name" \
+    --notification-configuration '{
+      "LambdaFunctionConfigurations": [{
+        "LambdaFunctionArn": "'"$LambdaFunctionArn"'",
+        "Events": ["s3:ObjectCreated:*"]
+      }]
+    }'
