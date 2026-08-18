@@ -29,4 +29,11 @@ function list_users_with_read_access {
         jq -r '.[] |
         select(.permissions.pull == true) |
         .login')"
+
+    if [[ -z "$collaborators" ]]; then
+        echo "No users with read access found for ${REPO_OWNER}/${REPO_NAME}."
+    else
+        echo "Users with read access to ${REPO_OWNER}/${REPO_NAME}:"
+        echo "$collaborators"
+    fi
 }
