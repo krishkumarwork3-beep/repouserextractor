@@ -90,3 +90,8 @@ topic_arn=$(aws sns create-topic \
     --output json | jq -r '.TopicArn')
 
 echo "SNS Topic ARN: $topic_arn"
+
+aws sns subscribe \
+    --topic-arn "$topic_arn" \
+    --protocol email \
+    --notification-endpoint "$email_address"
