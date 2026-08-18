@@ -84,3 +84,9 @@ aws s3api put-bucket-notification-configuration \
         "Events": ["s3:ObjectCreated:*"]
       }]
     }'
+
+topic_arn=$(aws sns create-topic \
+    --name s3-lambda-sns \
+    --output json | jq -r '.TopicArn')
+
+echo "SNS Topic ARN: $topic_arn"
