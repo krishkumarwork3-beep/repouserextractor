@@ -65,3 +65,10 @@ aws lambda create-function \
     --timeout 30 \
     --role "arn:aws:iam::$aws_account_id:role/$role_name" \
     --zip-file "fileb://./s3-lambda-function.zip"
+
+aws lambda add-permission \
+    --function-name "$lambda_func_name" \
+    --statement-id "s3-lambda-sns" \
+    --action "lambda:InvokeFunction" \
+    --principal s3.amazonaws.com \
+    --source-arn "arn:aws:s3:::$bucket_name"
